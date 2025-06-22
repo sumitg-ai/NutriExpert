@@ -13,11 +13,8 @@ from reportlab.lib.pagesizes import A4
 from datetime import datetime
 
 # Define paths
-#MODEL_PATH = "/mnt/c/Marriott/Learning/AI Projects/NutritionExpert_V2/Finetuned_Models/v3/indian_food_model_epoch_3.pth"
-#LABELS_PATH = "/mnt/c/Marriott/Learning/AI Projects/NutritionExpert_V2/Finetuning/indian_food_labels.json"
-
-MODEL_PATH = os.path.join("model", "indian_food_model_epoch_3.pth")
-LABELS_PATH = os.path.join("model", "indian_food_labels.json")
+MODEL_PATH = os.path.join(os.getcwd(), "indian_food_model_epoch_3.pth")
+LABELS_PATH = os.path.join(os.getcwd(), "indian_food_labels.json")
 
 app = Flask(__name__)
 
