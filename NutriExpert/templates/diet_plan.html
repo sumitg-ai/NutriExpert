@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diet Plan Generator</title>
+    <style>
+        .section {
+            border: 1px solid #aaa;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Diet Plan Generator</h2>
+    <form id="dietForm" method="POST" action="/generate-pdf" target="_blank">
+        <label>Client Name</label>
+        <input type="text" name="client_name" placeholder="e.g., Arunima Bhattacharya" required>
+
+        <div id="sections">
+            <div class="section">
+                <label>Enter Time</label>
+                <input type="text" name="section[0][time]" placeholder="e.g., 6:30 AM" required>
+
+                <div class="options">
+                    <label>Option 1</label>
+                    <input type="text" name="section[0][option][]" required>
+                </div>
+
+                <button type="button" onclick="addOption(this)">➕</button>
+            </div>
+        </div>
+
+        <button type="button" onclick="addSection()">Add New Section</button>
+        <button type="submit">Generate PDF</button>
+    </form>
+
+    <script>
+        let sectionIndex = 1;
+
+        function addSection() {
+            const sections = document.getElementById("sections");
+            const div = document.createElement("div");
+            div.className = "section";
+            div.innerHTML = `
+                <label>Enter Time</label>
+                <input type="text" name="section[${sectionIndex}][time]" required>
+                <div class="options">
+                    <label>Option 1</label>
+                    <input type="text" name="section[${sectionIndex}][option][]" required>
+                </div>
+                <button type="button" onclick="addOption(this)">➕</button>
+            `;
+            sections.appendChild(div);
+            sectionIndex++;
+        }
+
+        function addOption(btn) {
+            const optionsDiv = btn.previousElementSibling;
+            const count = optionsDiv.querySelectorAll('input').length + 1;
+            const input = document.createElement("input");
+            input.type = "text";
+            input.name = optionsDiv.querySelector('input').name;
+            input.placeholder = `Option ${count}`;
+            optionsDiv.appendChild(document.createElement("br"));
+            optionsDiv.appendChild(input);
+        }
+    </script>
+</body>
+</html>
